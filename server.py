@@ -13,7 +13,7 @@ class SimpleHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
             self.end_headers()
-            self.wfile.write(json.dumps({'message': 'pong'}).encode())
+            self.wfile.write(json.dumps({'message': 'pong-test'}).encode())
         else:
             self.send_response(404)
             self.send_header('Content-type', 'application/json')
