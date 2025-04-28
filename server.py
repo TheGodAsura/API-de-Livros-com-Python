@@ -8,7 +8,7 @@ class SimpleHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
             self.end_headers()
-            self.wfile.write(json.dumps({'message': 'API Disponível 🚀'}).encode())
+            self.wfile.write(json.dumps({'message': 'API Online 🚀'}).encode())
         elif self.path == '/ping':
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
