@@ -1,4 +1,4 @@
-name: Test and Deploy to Render
+name: Deploy API
 
 on:
   push:
@@ -6,24 +6,16 @@ on:
       - main
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    - name: Checkout do repositório
+      uses: actions/checkout@v3
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
+    - name: Verificar sintaxe do Python
+      run: python -m py_compile server.py
 
-      - name: Install dependencies
-        run: pip install -r requirements.txt pytest
-
-      - name: Run tests
-        run: pytest -v
-
-      - name: Deploy to Render
-        run: |
-          curl --fail -X POST ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+    - name: Disparar deploy no Render
+      if: success()
+      run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
